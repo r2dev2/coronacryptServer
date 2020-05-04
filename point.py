@@ -14,7 +14,7 @@ class Point:
 		return distance(
 			self.latitude, self.longitude,
 			other.latitude, other.longitude
-		) <= 20
+		) <= .03
 
 	def __str__(self):
 		return f"({self.latitude}, {self.longitude})"
@@ -23,5 +23,5 @@ class Point:
 		return self.__str__()
 
 	def __hash__(self):
-		return hash((self.latitude, self.longitude, self.corona))
+		return hash((round(self.latitude, 4), round(self.longitude), 4))
 		

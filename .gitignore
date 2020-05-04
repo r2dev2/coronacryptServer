@@ -1,1 +1,3 @@
 *.pickle
+__pycache__/*
+*.pyc

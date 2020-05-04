@@ -36,8 +36,4 @@ class LocationHistory:
 		self.locations.add(location)
 
 	def intersection(self, other):
-		intersection = set()
-		for point in self.locations:
-			if any([point == p for p in other.getLocations()]):
-				intersection.add(point)
-		return intersection
+		return self.locations.intersection(other.getLocations())
