@@ -70,19 +70,26 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 				login.updatePickle(login.clients)
 			except ValueError:
 				print("Go away with your bad formatting")
+			except KeyError:
+				print("Hacker alert hacker alert")
 		elif purpose == "login":
 			# Create username or say that username exists
-			uname = self.headers["Username"]
 			try:
+				uname = self.headers["Username"]
 				login.addUser(uname, login.clients)
 				login.updatePickle(login.clients)
 				response.write(b"Created new user")
 			except AssertionError:
 				response.write(b"User exists")
+			except KeyError:
+				response.write(b"Screw you, send the proper request")
 		elif purpose == "gotCorona":
 			# Updates the Username to have had corona in the system
-			login.clients[self.headers["Username"]].gotCorona()
-			login.updatePickle(login.clients)
+			try:
+				login.clients[self.headers["Username"]].gotCorona()
+				login.updatePickle(login.clients)
+			except KeyError:
+				response.write(b"Aha, I caught you, you sneaky hacker")
 		print("Headers:", self.headers)
 		self.send_response(200)
 		self.send_header("Access-Control-Allow-Origin", "*")
